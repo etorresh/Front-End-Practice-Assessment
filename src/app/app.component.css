@@ -7,5 +7,15 @@
 
 .week-wrapper {
   display: flex;
+  flex-wrap: wrap;
   outline: #dddddd solid 1px;
+}
+
+@media only screen and (max-width: 630px) {
+  .week-wrapper {
+    flex-direction: column;
+  }
+  .center {
+    margin: 50px;
+  }
 }
