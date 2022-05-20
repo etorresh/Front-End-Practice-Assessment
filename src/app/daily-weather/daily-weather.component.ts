@@ -10,7 +10,12 @@ export class DailyWeatherComponent implements OnInit {
 
   constructor(private weather: WeatherService) { }
   ngOnInit(): void {
-
+    console.log(this.weather.getCurrentWeatherData("calgary").subscribe(res => {
+      console.log(res);
+    }));
+    console.log(this.weather.getFiveDayForecast("calgary").subscribe(res => {
+      console.log(res);
+    }));
   }
 
 }
