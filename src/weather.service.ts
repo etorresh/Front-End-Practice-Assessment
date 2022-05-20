@@ -12,15 +12,12 @@ export class WeatherService {
   lon = -114.066666;
   constructor(private http: HttpClient) {
     if(navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.showPosition);
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.lat = position.coords.latitude;
+        this.lon = position.coords.longitude;
+      });
     }
   }
-
-  showPosition(position: any) {
-    this.lat = position.coords.latitude;
-    this.lon = position.coords.lon;
-  }
-
   getCurrentWeatherData() {
     return this.http.get<CurrentWeather>(`${environment.weatherApiUrl}/weather?lat=${this.lat}&lon=${this.lon}&units=metric&appid=${environment.weatherApiKey}`);
   }
