@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
   title = 'weather';
   weeklyData: DailyData[] = [];
   date = new Date();
+  loaded = false;
 
   constructor(private weather: WeatherService) {}
 
@@ -37,6 +38,7 @@ export class AppComponent implements OnInit {
           }
           this.weeklyData.push(dailyData);
         }
+        this.loaded = true;
       });
     });
   }

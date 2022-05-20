@@ -1,5 +1,5 @@
-<div class="center">
-  <div class="wrapper">
+<div *ngIf="loaded" class="center">
+  <div class="week-wrapper">
     <app-daily-weather *ngFor="let card of weeklyData" [data]="card" ></app-daily-weather>
   </div>
 </div>

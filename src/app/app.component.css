@@ -5,7 +5,7 @@
   height: 100vh;
 }
 
-.wrapper {
+.week-wrapper {
   display: flex;
   outline: #dddddd solid 1px;
 }
