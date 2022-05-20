@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import {Injectable} from "@angular/core";
 import { environment } from "./environments/environment";
 import { HttpClient } from "@angular/common/http";
 import {CurrentWeather} from "./interfaces/current-weather";
@@ -8,11 +8,23 @@ import {ForecastWeather} from "./interfaces/forecast-weather";
   providedIn: 'root'
 })
 export class WeatherService {
-  constructor(private http: HttpClient) {}
-  getCurrentWeatherData(city: string) {
-    return this.http.get<CurrentWeather>(`${environment.weatherApiUrl}/weather?q=${city}&units=metric&appid=${environment.weatherApiKey}`);
+  lat = 51.049999;
+  lon = -114.066666;
+  constructor(private http: HttpClient) {
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.showPosition);
+    }
   }
-  getFiveDayForecast(city: string) {
-    return this.http.get<ForecastWeather>(`${environment.weatherApiUrl}/forecast?q=${city}&cnt=4&units=metric&appid=${environment.weatherApiKey}`);
+
+  showPosition(position: any) {
+    this.lat = position.coords.latitude;
+    this.lon = position.coords.lon;
+  }
+
+  getCurrentWeatherData() {
+    return this.http.get<CurrentWeather>(`${environment.weatherApiUrl}/weather?lat=${this.lat}&lon=${this.lon}&units=metric&appid=${environment.weatherApiKey}`);
+  }
+  getFiveDayForecast() {
+    return this.http.get<ForecastWeather>(`${environment.weatherApiUrl}/forecast?lat=${this.lat}&lon=${this.lon}&cnt=4&units=metric&appid=${environment.weatherApiKey}`);
   }
 }

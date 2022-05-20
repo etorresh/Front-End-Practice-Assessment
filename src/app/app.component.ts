@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   constructor(private weather: WeatherService) {}
 
   ngOnInit() {
-    this.weather.getCurrentWeatherData("calgary").subscribe(currentWeather => {
+    this.weather.getCurrentWeatherData().subscribe(currentWeather => {
       const dailyData: DailyData = {
         backgroundColor: "#dddddd",
         time: String(this.date.toLocaleString('en-US', { hour: 'numeric', hour12: true})),
@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
       }
       this.weeklyData.push(dailyData);
       // OpenWeatherMap doesn't offer daily forecasts for free. I'll use the 5 day forecast with 3 hour intervals.
-      this.weather.getFiveDayForecast("calgary").subscribe(forecast => {
+      this.weather.getFiveDayForecast().subscribe(forecast => {
         for(let weather of forecast.list) {
           this.date.setTime(weather.dt * 1000);
           const dailyData: DailyData = {
