@@ -4,12 +4,7 @@ export interface CurrentWeather {
   lat: number;
   }
 
-  weather: {
-  id: number;
-  main: string;
-  description: string;
-  icon: string;
-  }
+  weather: weatherItems[],
 
   main: {
   temp: number;
@@ -44,4 +39,10 @@ export interface CurrentWeather {
   id: number;
   name: string;
   cod: number;
+}
+export interface weatherItems {
+  id: number;
+  main: string;
+  description: string;
+  icon: string;
 }

@@ -1,1 +1,3 @@
-<app-daily-weather class="center"></app-daily-weather>
+<div class="center">
+  <app-daily-weather *ngFor="let card of weeklyData" [data]="card" ></app-daily-weather>
+</div>
