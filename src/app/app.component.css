@@ -4,3 +4,8 @@
   justify-content: center;
   height: 100vh;
 }
+
+.wrapper {
+  display: flex;
+  outline: #dddddd solid 1px;
+}

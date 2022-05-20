@@ -13,6 +13,6 @@ export class WeatherService {
     return this.http.get<CurrentWeather>(`${environment.weatherApiUrl}/weather?q=${city}&units=metric&appid=${environment.weatherApiKey}`);
   }
   getFiveDayForecast(city: string) {
-    return this.http.get<ForecastWeather>(`${environment.weatherApiUrl}/forecast?q=${city}&units=metric&appid=${environment.weatherApiKey}`);
+    return this.http.get<ForecastWeather>(`${environment.weatherApiUrl}/forecast?q=${city}&cnt=4&units=metric&appid=${environment.weatherApiKey}`);
   }
 }

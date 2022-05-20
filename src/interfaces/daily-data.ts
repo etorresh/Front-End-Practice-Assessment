@@ -1,5 +1,5 @@
 export interface DailyData {
-  day: string;
+  time: string;
   icon: string;
   max: string;
   min: string;

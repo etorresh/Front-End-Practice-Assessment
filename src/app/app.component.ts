@@ -15,22 +15,29 @@ export class AppComponent implements OnInit {
   constructor(private weather: WeatherService) {}
 
   ngOnInit() {
-    this.weather.getCurrentWeatherData("calgary").subscribe(res => {
-      console.log(res);
-      console.log(res.weather)
+    this.weather.getCurrentWeatherData("calgary").subscribe(currentWeather => {
       const dailyData: DailyData = {
-        backgroundColor: "white",
-        // backgroundColor: "#dddddd",
-        day: this.dayOfWeekAsString(this.date.getDay()),
-        max: String(res.main.temp_max),
-        min: String(res.main.temp_min),
-        icon: `http://openweathermap.org/img/wn/${res.weather[0].icon}@2x.png`
+        backgroundColor: "#dddddd",
+        time: String(this.date.toLocaleString('en-US', { hour: 'numeric', hour12: true})),
+        max: String(currentWeather.main.temp_max),
+        min: String(currentWeather.main.temp_min),
+        icon: `http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`
       }
       this.weeklyData.push(dailyData);
-    })
-  }
-
-  dayOfWeekAsString(dayIndex: number) {
-    return ["Sunday","Monday", "Tuesday","Wednesday","Thursday","Friday","Saturday"][dayIndex].substring(0, 3);
+      // OpenWeatherMap doesn't offer daily forecasts for free. I'll use the 5 day forecast with 3 hour intervals.
+      this.weather.getFiveDayForecast("calgary").subscribe(forecast => {
+        for(let weather of forecast.list) {
+          this.date.setTime(weather.dt * 1000);
+          const dailyData: DailyData = {
+            backgroundColor: "white",
+            time: String(this.date.toLocaleString('en-US', { hour: 'numeric', hour12: true})),
+            max: String(weather.main.temp_max),
+            min: String(weather.main.temp_min),
+            icon: `http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`
+          }
+          this.weeklyData.push(dailyData);
+        }
+      });
+    });
   }
 }
